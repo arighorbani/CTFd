@@ -18,9 +18,12 @@ if args.disable_gevent:
     monkey.patch_all()
 
 # Import not at top of file to allow gevent to monkey patch uninterrupted
-from CTFd import create_app
+from CTFd import create_app, socketio
 
 app = create_app()
+
+#TODO DEBUG MODE ACTIVATED, listening on any hosts
+socketio.run(app, debug=True, host="0.0.0.0", port=4000)
 
 if args.profile:
     from flask_debugtoolbar import DebugToolbarExtension
